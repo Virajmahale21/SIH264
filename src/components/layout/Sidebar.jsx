@@ -15,12 +15,18 @@ import {
 } from 'react-icons/md';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../services/api';
+import logoEn from '../../assets/logo-en.jpg';
+import logoHi from '../../assets/logo-hi.jpg';
 
 export default function Sidebar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { logout, user, hasRole } = useAuth();
   const location = useLocation();
   const [flaggedCount, setFlaggedCount] = useState(0);
+
+  const currentLang = i18n.language || 'en-IN';
+  const isDevanagari = currentLang.startsWith('hi') || currentLang.startsWith('mr');
+  const currentLogo = isDevanagari ? logoHi : logoEn;
 
   useEffect(() => {
     async function loadFlaggedOverlaps() {
@@ -50,11 +56,23 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-header">
-        <div className="sidebar-emblem">AICTE</div>
-        <div className="sidebar-header-text">
-          <h2>{t('app.shortTitle')}</h2>
-          <p>{t('app.subtitle')}</p>
+      <div className="sidebar-header" style={{ padding: '12px 10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{
+          background: '#FFFFFF',
+          borderRadius: '6px',
+          padding: '6px 8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.25)',
+          width: '100%',
+          boxSizing: 'border-box'
+        }}>
+          <img
+            src={currentLogo}
+            alt={isDevanagari ? 'एआईसीटीई संयोजिका' : 'AICTE Sanyojika'}
+            style={{ width: '100%', height: 'auto', maxHeight: '50px', objectFit: 'contain' }}
+          />
         </div>
       </div>
 

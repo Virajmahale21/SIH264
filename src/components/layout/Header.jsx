@@ -13,6 +13,8 @@ import {
 } from 'react-icons/md';
 import { useAuth } from '../../context/AuthContext';
 import { api } from '../../services/api';
+import logoEn from '../../assets/logo-en.jpg';
+import logoHi from '../../assets/logo-hi.jpg';
 
 export default function Header() {
   const { user } = useAuth();
@@ -114,10 +116,30 @@ export default function Header() {
   };
 
   const currentLang = i18n.language || 'en-IN';
+  const isDevanagari = currentLang.startsWith('hi') || currentLang.startsWith('mr');
+  const currentLogo = isDevanagari ? logoHi : logoEn;
 
   return (
     <header className="gov-header">
       <div className="gov-header-left">
+        <img
+          src={currentLogo}
+          alt={isDevanagari ? 'एआईसीटीई संयोजिका' : 'AICTE Sanyojika'}
+          style={{
+            height: '46px',
+            width: 'auto',
+            maxHeight: '46px',
+            objectFit: 'contain',
+            borderRadius: '4px',
+            border: '1px solid var(--border-light)',
+            padding: '2px 8px',
+            backgroundColor: '#FFFFFF',
+            cursor: 'pointer',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+          }}
+          onClick={() => navigate('/')}
+          title={isDevanagari ? 'एआईसीटीई संयोजिका' : 'AICTE Sanyojika'}
+        />
         <div className="gov-title-group">
           <h1>{t('app.title')}</h1>
           <p>Government of India • All India Council for Technical Education (AICTE)</p>

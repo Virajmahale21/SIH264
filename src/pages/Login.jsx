@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdLock, MdEmail, MdShield, MdArrowForward } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
+import logoEn from '../assets/logo-en.jpg';
+import logoHi from '../assets/logo-hi.jpg';
 
 export default function Login() {
   const { login } = useAuth();
@@ -31,6 +33,13 @@ export default function Login() {
   };
 
   const currentLang = i18n.language || 'en-IN';
+  const isDevanagari = currentLang.startsWith('hi') || currentLang.startsWith('mr');
+  const currentLogo = isDevanagari ? logoHi : logoEn;
+
+  const handleLanguageChange = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('aicte_lang', lng);
+  };
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-page)', display: 'flex', flexDirection: 'column' }}>
@@ -53,31 +62,36 @@ export default function Login() {
             borderTop: '4px solid var(--primary-navy)'
           }}
         >
-          {/* Header */}
-          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          {/* Official AICTE Sanyojika Logo (Language-Dynamic) */}
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <div
               style={{
-                width: '56px',
-                height: '56px',
-                background: 'var(--primary-navy)',
-                color: '#FFFFFF',
+                background: '#FFFFFF',
                 borderRadius: '8px',
-                margin: '0 auto 12px',
+                padding: '10px 14px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.4rem',
-                fontWeight: 800,
-                border: '2px solid var(--accent-saffron)'
+                border: '1px solid var(--border-light)',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05)',
+                marginBottom: '10px',
+                width: '100%',
+                boxSizing: 'border-box'
               }}
             >
-              AICTE
+              <img
+                src={currentLogo}
+                alt={isDevanagari ? 'एआईसीटीई संयोजिका' : 'AICTE Sanyojika'}
+                style={{
+                  width: '100%',
+                  maxHeight: '95px',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+              />
             </div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary-navy)' }}>
-              {t('app.shortTitle')}
-            </h2>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-              All India Council for Technical Education • SIH 2026 PS 264
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0, fontWeight: 500 }}>
+              {t('app.subtitle')} • SIH 2026 PS 264
             </p>
           </div>
 
@@ -87,21 +101,21 @@ export default function Login() {
               <button
                 type="button"
                 className={`lang-btn ${currentLang.startsWith('en') ? 'active' : ''}`}
-                onClick={() => i18n.changeLanguage('en-IN')}
+                onClick={() => handleLanguageChange('en-IN')}
               >
                 English
               </button>
               <button
                 type="button"
                 className={`lang-btn ${currentLang.startsWith('hi') ? 'active' : ''}`}
-                onClick={() => i18n.changeLanguage('hi-IN')}
+                onClick={() => handleLanguageChange('hi-IN')}
               >
                 हिंदी
               </button>
               <button
                 type="button"
                 className={`lang-btn ${currentLang.startsWith('mr') ? 'active' : ''}`}
-                onClick={() => i18n.changeLanguage('mr-IN')}
+                onClick={() => handleLanguageChange('mr-IN')}
               >
                 मराठी
               </button>
