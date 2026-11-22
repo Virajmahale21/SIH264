@@ -13,6 +13,7 @@ import notificationRoutes from './routes/notifications.js';
 import networkRoutes from './routes/network.js';
 import auditLogRoutes from './routes/auditLogs.js';
 import { validateEnv } from './config/validateEnv.js';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
 validateEnv();
@@ -111,10 +112,7 @@ async function checkDeadlinesAndEscalate() {
 setInterval(checkDeadlinesAndEscalate, 60000);
 
 // Global Error Handler
-app.use((err, req, res, next) => {
-  console.error('Unhandled Server Error:', err);
-  res.status(500).json({ error: 'Internal Server Error' });
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`🏛️ AICTE Backend Server listening on port ${PORT}`);
