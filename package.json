@@ -13,7 +13,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "seed": "node server/seed.js",
-    "test": "node test/system.test.js",
+    "test:unit": "node test/overlapEngine.test.js",
+    "test:api": "node test/api.test.js",
+    "test:system": "node test/system.test.js",
+    "test": "node test/overlapEngine.test.js && node test/api.test.js && node test/system.test.js",
     "render-build": "npm install && npx prisma generate && npx prisma db push && node server/seed.js"
   },
   "dependencies": {
