@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sih264-web
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+      - DATABASE_URL=postgresql://sih_user:sih_secret@db:5432/sih264?schema=public
+      - JWT_SECRET=sih264-production-jwt-super-secret-key-aicte
+      - FRONTEND_URL=http://localhost:5001
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    container_name: sih264-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sih_user
+      POSTGRES_PASSWORD: sih_secret
+      POSTGRES_DB: sih264
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sih_user -d sih264"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
