@@ -12,8 +12,10 @@ import reportRoutes from './routes/reports.js';
 import notificationRoutes from './routes/notifications.js';
 import networkRoutes from './routes/network.js';
 import auditLogRoutes from './routes/auditLogs.js';
+import { validateEnv } from './config/validateEnv.js';
 
 dotenv.config();
+validateEnv();
 
 const app = express();
 const prisma = new PrismaClient();
