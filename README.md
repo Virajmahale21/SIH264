@@ -1,7 +1,25 @@
 # AICTE Integrated Complaint & Overlap Tracking Portal (SIH 2026 — PS 264)
 
+[![CI / Build & Test](https://github.com/Virajmahale21/SIH264/actions/workflows/ci.yml/badge.svg)](https://github.com/Virajmahale21/SIH264/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/badge/Node-%3E%3D20.0.0-green.svg)](https://nodejs.org)
+[![Documentation](https://img.shields.io/badge/Documentation-Complete-blue.svg)](./docs/)
+
 > **PROPOSED SIH 2026 PROTOTYPE — AICTE PROBLEM STATEMENT 264**  
 > *Research, demonstration, and evaluation prototype. Not an officially deployed Government of India or AICTE public service.*
+
+---
+
+## 📚 Technical Documentation Index
+
+Detailed documentation and engineering specifications are available in the [`docs/`](./docs/) directory:
+- [System Architecture & Overlap Engine Specification](./docs/ARCHITECTURE.md)
+- [Comprehensive REST API Reference](./docs/API_REFERENCE.md)
+- [Relational Database Schema & Data Dictionary](./docs/DATABASE_SCHEMA.md)
+- [Official 16-Feature Functional Modules Inventory](./docs/FEATURES.md)
+- [Production Deployment Guide (Render, Vercel & Docker)](./docs/DEPLOYMENT_GUIDE.md)
+- [Contributing Guidelines & Conventional Commits](./docs/CONTRIBUTING.md)
+- [Security Policy & Vulnerability Disclosure](./docs/SECURITY.md)
 
 ---
 

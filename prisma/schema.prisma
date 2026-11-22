@@ -1,5 +1,11 @@
+// =============================================================================
+// AICTE Problem Statement 264 — Relational Database Schema (Prisma ORM)
+// Default Provider: SQLite (Local Development & Test Suite)
+// For PostgreSQL production deployment, see prisma/schema.postgresql.prisma
+// =============================================================================
+
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -49,7 +55,7 @@ model Complaint {
   complaintNumber    String       @unique
   institutionId      String
   category           String
-  description        String       @db.Text
+  description        String      
   source             String       @default("Online Portal")
   complainantType    String       @default("Student")
   department         String
@@ -78,7 +84,7 @@ model Action {
   actionByName   String
   fromDepartment String?
   toDepartment   String?
-  remarks        String       @db.Text
+  remarks        String      
   attachmentUrl  String?
   createdAt      DateTime     @default(now())
 
@@ -99,8 +105,8 @@ model Overlap {
   departmentA        String
   departmentB        String
   status             String       @default("FLAGGED")
-  matchedSignals     String       @db.Text
-  differences        String       @db.Text
+  matchedSignals     String      
+  differences        String      
   reviewedBy         String?
   reviewedAt         DateTime?
   createdAt          DateTime     @default(now())
@@ -116,11 +122,11 @@ model CoordinationRecord {
   id                   String       @id @default(uuid())
   overlapId            String       @unique
   leadBureau           String
-  participatingBureaus String       @db.Text
-  assignedOfficers     String       @db.Text
+  participatingBureaus String      
+  assignedOfficers     String      
   status               String       @default("ACTIVE")
-  jointDirective       String       @db.Text
-  nextActions          String?      @db.Text
+  jointDirective       String      
+  nextActions          String?     
   deadline             DateTime?
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
@@ -136,7 +142,7 @@ model CoordinationAction {
   officerId            String?
   officerName          String
   bureau               String
-  notes                String              @db.Text
+  notes                String             
   createdAt            DateTime            @default(now())
 
   coordinationRecord   CoordinationRecord  @relation(fields: [coordinationRecordId], references: [id], onDelete: Cascade)
@@ -150,7 +156,7 @@ model AuditLog {
   entityType String
   entityId   String?
   ipAddress  String?      @default("127.0.0.1")
-  details    String?      @db.Text
+  details    String?     
   createdAt  DateTime     @default(now())
 
   user       User?        @relation(fields: [userId], references: [id])
@@ -161,7 +167,7 @@ model Notification {
   userId             String
   type               String
   title              String
-  message            String       @db.Text
+  message            String      
   relatedComplaintId String?
   relatedOverlapId   String?
   isRead             Boolean      @default(false)
@@ -179,11 +185,11 @@ model BenchmarkCase {
   departmentB        String
   categoryA          String
   categoryB          String
-  descriptionA       String       @db.Text
-  descriptionB       String       @db.Text
+  descriptionA       String      
+  descriptionB       String      
   groundTruthLabel   Boolean
   predictedScore     Float?
   predictedLabel     Boolean?
-  explanation        String       @db.Text
+  explanation        String      
   verifiedAt         DateTime     @default(now())
 }
